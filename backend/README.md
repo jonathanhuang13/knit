@@ -1,7 +1,7 @@
 ## Getting set up
 
 1. Install EdgeDB
-2. `npx edgeql-js`
+2. `npx edgeql-js --target cjs`
 3. `npm run dev`
 
 ## DB Migrations
