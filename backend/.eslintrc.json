@@ -11,6 +11,7 @@
     "ecmaVersion": 2020
   },
   "plugins": ["@typescript-eslint", "eslint-plugin-unicorn"],
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
   "rules": {
     "@typescript-eslint/adjacent-overload-signatures": "error",
     "no-redeclare": "error",

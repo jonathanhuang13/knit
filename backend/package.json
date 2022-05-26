@@ -7,9 +7,9 @@
     "transpile": "rm -rf dist && tsc --pretty",
     "prettier": "prettier --loglevel error --write './src/**/*.ts'",
     "lint": "eslint --ext .ts src",
-    "dev": "tsc-watch --onSuccess \"node dist/index.js\"",
+    "dev": "tsc-watch --onSuccess \"node dist/src/index.js\"",
     "build": "npm run transpile && npm run prettier && npm run lint",
-    "start": "npm run build && node dist/index.js"
+    "start": "npm run build && node dist/src/index.js"
   },
   "keywords": [],
   "author": "",

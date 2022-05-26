@@ -1,5 +1,4 @@
 import e from '@edgedb/edgeql-js';
-// import e from '../../dbschema/edgeql-js';
 
 import { EDGE_DB_CLIENT } from './client';
 
@@ -9,8 +8,7 @@ export async function getUser(id: string) {
     ...e.User['*'],
   }));
 
-  const a = await query.run(EDGE_DB_CLIENT);
-  return a;
+  return query.run(EDGE_DB_CLIENT);
 }
 
 export async function createUser(first_name: string, last_name: string) {
