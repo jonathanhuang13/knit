@@ -4,19 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "transpile": "rm -rf lib && tsc --pretty",
+    "transpile": "rm -rf dist && tsc --pretty",
     "prettier": "prettier --loglevel error --write './src/**/*.ts'",
     "lint": "eslint --ext .ts src",
-    "dev": "tsc-watch --onSuccess \"node lib/index.js\"",
+    "dev": "tsc-watch --onSuccess \"node dist/index.js\"",
     "build": "npm run transpile && npm run prettier && npm run lint",
-    "start": "npm run build && node lib/index.js"
+    "start": "npm run build && node dist/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "apollo-server": "^3.8.1",
-    "graphql": "^16.5.0"
+    "edgedb": "^0.20.10",
+    "graphql": "^16.5.0",
+    "module-alias": "^2.2.2"
   },
   "devDependencies": {
     "@swc/cli": "^0.1.57",
@@ -28,6 +30,7 @@
     "eslint-plugin-unicorn": "^42.0.0",
     "nodemon": "^2.0.16",
     "prettier": "^2.6.2",
+    "ts-node": "^10.8.0",
     "tsc-watch": "^5.0.3",
     "typescript": "^4.7.2"
   }
