@@ -3,6 +3,10 @@
     "target": "es2021",
     "module": "commonjs",
     "lib": ["es2021"],
+    "paths": {
+      "@src/*": ["./src/*"],
+      "@edgedb/*": ["./dbschema/*"]
+    },
     "moduleResolution": "node",
     "rootDirs": ["src", "dbschema/edgeql-js"],
     "outDir": "dist",
@@ -19,7 +23,7 @@
     "noImplicitThis": false,
     "strictNullChecks": false
   },
-  "include": ["src/**/*", "__tests__/**/*"],
+  "include": ["src/**/*", "scripts/**/*", "__tests__/**/*"],
   "ts-node": {
     // It is faster to skip typechecking.
     // Remove if you want ts-node to do typechecking.

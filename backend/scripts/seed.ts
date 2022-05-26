@@ -1,4 +1,4 @@
-import * as users from './users';
+import * as users from '@src/db/users';
 
 const USERS = [
   {
@@ -9,9 +9,7 @@ const USERS = [
 ];
 
 async function seedUsers(): Promise<void> {
-  await Promise.all(
-    USERS.map((user) => users.createUser(user.first_name, user.last_name)),
-  );
+  await Promise.all(USERS.map((user) => users.createUser(user.first_name, user.last_name)));
 }
 
 async function seedAll(): Promise<void> {

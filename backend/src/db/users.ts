@@ -1,5 +1,5 @@
-// import e from '@dbschema/edgeql-js';
-import e from '../../dbschema/edgeql-js';
+import e from '@edgedb/edgeql-js';
+// import e from '../../dbschema/edgeql-js';
 
 import { EDGE_DB_CLIENT } from './client';
 
