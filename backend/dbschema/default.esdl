@@ -1,6 +1,7 @@
 module default {
   type User {
-    required property first_name -> str;
-    required property last_name -> str;
+    property first_name -> str;
+    property last_name -> str;
+    required property email -> str;
   }
 }
