@@ -1,15 +1,21 @@
+import 'module-alias/register';
 import * as users from '@src/db/users';
 
 const USERS = [
   {
-    first_name: 'Jonathan',
-    last_name: 'Huang',
+    email: 'email1@gmail.com',
+    firstName: 'Jonathan',
+    lastName: 'Huang',
   },
-  { first_name: 'Elysa', last_name: 'Kohrs' },
+  {
+    email: 'email2@gmail.com',
+    firstName: 'Elysa',
+    lastName: 'Kohrs',
+  },
 ];
 
 async function seedUsers(): Promise<void> {
-  await Promise.all(USERS.map((user) => users.createUser(user.first_name, user.last_name)));
+  await Promise.all(USERS.map((user) => users.createUser(user.email, user.firstName, user.lastName)));
 }
 
 async function seedAll(): Promise<void> {

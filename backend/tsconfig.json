@@ -4,11 +4,10 @@
     "module": "commonjs",
     "lib": ["es2021"],
     "paths": {
-      "@src/*": ["./src/*"],
-      "@edgedb/*": ["./dbschema/*"]
+      "@src/*": ["./src/*"]
     },
     "moduleResolution": "node",
-    "rootDirs": ["src", "dbschema/edgeql-js"],
+    "rootDirs": ["src"],
     "outDir": "dist",
     "allowSyntheticDefaultImports": true,
     "importHelpers": true,
@@ -27,13 +26,6 @@
     // It is faster to skip typechecking.
     // Remove if you want ts-node to do typechecking.
     "transpileOnly": true,
-
-    "files": true,
-
-    "compilerOptions": {
-      // compilerOptions specified here will override those declared below,
-      // but *only* in ts-node.  Useful if you want ts-node and tsc to use
-      // different options with a single tsconfig.json.
-    }
+    "files": true
   }
 }
