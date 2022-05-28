@@ -1,4 +1,4 @@
-import { objectType, extendType, nonNull, list, stringArg } from 'nexus';
+import { objectType, extendType, nonNull, list, stringArg, nullable } from 'nexus';
 
 import { createUser, getAllUsers } from '@db/users';
 
@@ -7,8 +7,8 @@ export const User = objectType({
   definition: (t) => {
     t.int('id');
     t.string('email');
-    t.string('firstName');
-    t.string('lastName');
+    t.nullable.string('firstName');
+    t.nullable.string('lastName');
   },
 });
 
@@ -18,7 +18,7 @@ export const UserQuery = extendType({
     // Users
     t.field('users', {
       type: nonNull(list('User')),
-      resolve: (_root, _args, ctx) => {
+      resolve: async (_root, _args, ctx) => {
         return getAllUsers(ctx.prisma);
       },
     });
@@ -32,9 +32,9 @@ export const UserMutation = extendType({
     t.field('createUser', {
       type: nonNull('User'),
       args: {
-        email: nonNull(stringArg()),
-        firstName: stringArg(),
-        lastName: stringArg(),
+        email: stringArg(),
+        firstName: nullable(stringArg()),
+        lastName: nullable(stringArg()),
       },
       resolve: (_root, args, ctx) => {
         return createUser(ctx.prisma, args);

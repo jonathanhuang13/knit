@@ -1,5 +1,5 @@
 import { join } from 'path';
-import { makeSchema } from 'nexus';
+import { makeSchema, declarativeWrappingPlugin } from 'nexus';
 
 import * as types from './objects';
 
@@ -13,4 +13,6 @@ export const schema = makeSchema({
     module: join(__dirname, './context.ts'),
     export: 'Context',
   },
+  plugins: [declarativeWrappingPlugin()],
+  nonNullDefaults: { output: true, input: true },
 });

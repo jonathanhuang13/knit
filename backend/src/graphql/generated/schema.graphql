@@ -7,12 +7,12 @@ type Mutation {
 }
 
 type Query {
-  users: [User]!
+  users: [User!]!
 }
 
 type User {
-  email: String
+  email: String!
   firstName: String
-  id: Int
+  id: Int!
   lastName: String
 }
