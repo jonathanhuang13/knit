@@ -1,8 +1,7 @@
 import Constants from 'expo-constants';
 
-const { manifest } = Constants;
-
 export function getExpoServerIP(port: number): string {
+  const { manifest } = Constants;
   const isDev = typeof manifest?.packagerOpts === `object` && !!manifest.packagerOpts.dev;
 
   if (isDev) {
