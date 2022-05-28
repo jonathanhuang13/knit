@@ -2,8 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
+import { getExpoServerIP } from '@utils/network';
+
 import Home from './src/screens/Home';
-import { getExpoServerIP } from './src/utils/network';
 
 // Initialize Apollo Client
 const client = new ApolloClient({
@@ -16,7 +17,7 @@ export default function App() {
     <ApolloProvider client={client}>
       <View style={styles.container}>
         <Home />
-        <Text>Open up App.tsx to start working on your app!</Text>
+        <Text>Open up App.tsx to start working on your app!!!!</Text>
         <StatusBar style="auto" />
       </View>
     </ApolloProvider>

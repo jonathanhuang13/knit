@@ -1,8 +1,8 @@
 import React from 'react';
 import { Text, FlatList } from 'react-native';
 
-import useRemoteDataQuery from '../../hooks/useRemoteDataQuery';
-import { isError, isLoading, isNotAsked } from '../../utils/remoteData';
+import useRemoteDataQuery from '@hooks/useRemoteDataQuery';
+import { isError, isLoading, isNotAsked } from '@utils/remoteData';
 
 import { UserQueryData, USERS_QUERY } from './data';
 
