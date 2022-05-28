@@ -1,17 +1,19 @@
-import { User, Prisma } from '@prisma/client';
+import { User, Prisma, PrismaClient } from '@prisma/client';
 
-import { PRISMA_CLIENT } from './client';
-
-export async function getUser(id: number): Promise<User> {
-  return PRISMA_CLIENT.user.findUnique({ where: { id } });
+export async function getAllUsers(client: PrismaClient): Promise<User[]> {
+  return client.user.findMany();
 }
 
-export async function createUser(data: Prisma.UserCreateInput): Promise<User> {
-  return PRISMA_CLIENT.user.create({
+export async function getUser(client: PrismaClient, id: number): Promise<User> {
+  return client.user.findUnique({ where: { id } });
+}
+
+export async function createUser(client: PrismaClient, data: Prisma.UserCreateInput): Promise<User> {
+  return client.user.create({
     data: data,
   });
 }
 
-export async function deleteAllUsers() {
-  await PRISMA_CLIENT.user.deleteMany({});
+export async function deleteAllUsers(client: PrismaClient) {
+  await client.user.deleteMany({});
 }

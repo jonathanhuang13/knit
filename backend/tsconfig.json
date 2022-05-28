@@ -4,7 +4,7 @@
     "module": "commonjs",
     "lib": ["es2021"],
     "paths": {
-      "@src/*": ["./src/*"]
+      "@db/*": ["./src/db/*"]
     },
     "moduleResolution": "node",
     "rootDirs": ["src"],

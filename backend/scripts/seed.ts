@@ -1,5 +1,9 @@
 import 'module-alias/register';
-import * as users from '@src/db/users';
+import { PrismaClient } from '@prisma/client';
+
+import * as users from '@db/users';
+
+const PRISMA_CLIENT = new PrismaClient();
 
 const USERS = [
   {
@@ -15,11 +19,11 @@ const USERS = [
 ];
 
 async function seedUsers(): Promise<void> {
-  await Promise.all(USERS.map((user) => users.createUser(user.email, user.firstName, user.lastName)));
+  await Promise.all(USERS.map((user) => users.createUser(PRISMA_CLIENT, user)));
 }
 
 async function seedAll(): Promise<void> {
-  await users.deleteAllUsers();
+  await users.deleteAllUsers(PRISMA_CLIENT);
   await seedUsers();
 }
 
