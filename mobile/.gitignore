@@ -1,3 +1,7 @@
+.env
 node_modules
 
 .expo/web/cache
+
+ui-debug.log
+firebase-debug.log
