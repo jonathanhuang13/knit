@@ -5,7 +5,7 @@ import firebaseApp from '../external/firebase';
 
 const auth = getAuth(firebaseApp);
 
-export default function useAuthentication() {
+export default function useAuth() {
   const [user, setUser] = React.useState<User>();
 
   useEffect(() => {

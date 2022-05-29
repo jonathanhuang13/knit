@@ -8,5 +8,5 @@ import UnAuthStack from './UnAuthed';
 export default function RootNavigation() {
   const { user } = useAuth();
 
-  return user ? <AuthStack /> : <UnAuthStack />;
+  return user ? <AuthStack user={user} /> : <UnAuthStack />;
 }
