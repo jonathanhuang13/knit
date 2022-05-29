@@ -4,7 +4,10 @@
     "strict": true,
     "paths": {
       "@hooks/*": ["./src/hooks/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@utils/*": ["./src/utils/*"],
+      "@screens/*": ["./src/screens/*"],
+      "@navigation/*": ["./src/navigation/*"],
+      "@external/*": ["./src/external/*"]
     }
   }
 }

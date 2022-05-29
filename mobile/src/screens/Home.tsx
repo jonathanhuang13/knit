@@ -5,7 +5,8 @@ import { getAuth, signOut } from 'firebase/auth';
 
 import useRemoteDataQuery from '@hooks/useRemoteDataQuery';
 import { isError, isLoading, isNotAsked } from '@utils/remoteData';
-import { AuthedUserContext } from '../navigation/Authed';
+
+import { AuthedUserContext } from '@navigation/Authed';
 
 const auth = getAuth();
 

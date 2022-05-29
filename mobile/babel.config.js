@@ -10,6 +10,9 @@ module.exports = function (api) {
           alias: {
             '@hooks': './src/hooks',
             '@utils': './src/utils',
+            '@screens': './src/screens',
+            '@navigation': './src/navigation',
+            '@external': './src/external',
           },
           extensions: ['.ios.js', '.android.js', '.js', '.jsx', '.json', '.tsx', '.ts', '.native.js'],
         },

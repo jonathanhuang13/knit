@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { User } from 'firebase/auth';
 
-import HomeScreen from '../screens/Home';
+import HomeScreen from '@screens/Home';
 
 const Stack = createNativeStackNavigator();
 
