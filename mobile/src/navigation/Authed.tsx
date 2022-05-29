@@ -5,7 +5,11 @@ import { User } from 'firebase/auth';
 
 import HomeScreen from '@screens/Home';
 
-const Stack = createNativeStackNavigator();
+export type AuthedStackParamList = {
+  Home: undefined;
+};
+
+const Stack = createNativeStackNavigator<AuthedStackParamList>();
 
 interface AuthedProps {
   user: User;

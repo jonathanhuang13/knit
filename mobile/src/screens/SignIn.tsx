@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { UnAuthedStackParamList } from '@navigation/UnAuthed';
 
 const auth = getAuth();
 
-export default function SignIn({ navigation }: NativeStackScreenProps<any>) {
+export default function SignIn({ navigation }: NativeStackScreenProps<UnAuthedStackParamList, 'SignIn'>) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string>();

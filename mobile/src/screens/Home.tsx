@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
 import { Text, FlatList, View, Button } from 'react-native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { gql } from '@apollo/client';
 import { getAuth, signOut } from 'firebase/auth';
 
 import useRemoteDataQuery from '@hooks/useRemoteDataQuery';
 import { isError, isLoading, isNotAsked } from '@utils/remoteData';
 
-import { AuthedUserContext } from '@navigation/Authed';
+import { AuthedUserContext, AuthedStackParamList } from '@navigation/Authed';
 
 const auth = getAuth();
 
@@ -28,7 +29,7 @@ export interface User {
   email: string;
 }
 
-export default function Home() {
+export default function Home(_props: NativeStackScreenProps<AuthedStackParamList, 'Home'>) {
   const user = useContext(AuthedUserContext);
   const { remoteData } = useRemoteDataQuery<UserQueryData>(USERS_QUERY);
 

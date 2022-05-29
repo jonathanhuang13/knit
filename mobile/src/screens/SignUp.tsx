@@ -3,11 +3,13 @@ import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
+import { UnAuthedStackParamList } from '@navigation/UnAuthed';
+
 // TODO: Google Authentication (https://dev.to/haydenbleasel/implementing-google-and-apple-login-hooks-with-expo-43-and-firebase-v9-pjm)
 
 const auth = getAuth();
 
-export default function SignUp({ navigation }: NativeStackScreenProps<any>) {
+export default function SignUp({ navigation }: NativeStackScreenProps<UnAuthedStackParamList, 'SignUp'>) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string>();
@@ -20,7 +22,7 @@ export default function SignUp({ navigation }: NativeStackScreenProps<any>) {
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      navigation.navigate('Sign In');
+      navigation.navigate('SignIn');
     } catch (e) {
       console.error(e);
       setError('Error signing up');
