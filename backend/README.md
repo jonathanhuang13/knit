@@ -5,6 +5,7 @@
 3. `npx prisma db push`
 4. `npx prisma db seed`
 5. `npm run dev`
+6. Now, you can go to `localhost:4001` and you should see the GraphQL playground
 
 ## Seeding and re-seeding the DB
 
