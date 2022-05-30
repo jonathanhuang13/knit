@@ -29,11 +29,11 @@ model User {
 }
 
 model Community {
-  id        Int       @id @default(autoincrement())
-  name      String
-  slug      String    @unique
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
 
   communityUsers CommunityUser[]
 

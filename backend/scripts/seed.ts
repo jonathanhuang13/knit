@@ -7,7 +7,6 @@ const PRISMA_CLIENT = new PrismaClient();
 const COMMUNITIES: Prisma.CommunityCreateInput[] = [
   {
     name: 'Subpar Sonics',
-    slug: 'subpar-sonics',
     communityUsers: {
       create: [
         {
@@ -27,7 +26,7 @@ const COMMUNITIES: Prisma.CommunityCreateInput[] = [
   },
   {
     name: 'Seattle Co-op',
-    slug: 'cg-coop',
+    description: 'Common Good community group',
     communityUsers: {
       create: [
         {
