@@ -4,3 +4,7 @@
 2. `npm install`
 3. `npx prisma migrate dev`
 4. `npm run dev`
+
+## Seeding and re-seeding the DB
+
+`npx prisma migrate reset`

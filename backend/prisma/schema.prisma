@@ -10,11 +10,46 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserRole {
+  MEMBER
+  ADMIN
+}
+
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
   firstName String?
   lastName  String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+
+  communityUsers CommunityUser[]
 
   @@map("users")
+}
+
+model Community {
+  id        Int       @id @default(autoincrement())
+  name      String
+  slug      String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+
+  communityUsers CommunityUser[]
+
+  @@map("communities")
+}
+
+model CommunityUser {
+  user        User      @relation(fields: [userId], references: [id])
+  userId      Int
+  community   Community @relation(fields: [communityId], references: [id])
+  communityId Int
+
+  role      UserRole
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+
+  @@id([userId, communityId])
+  @@map("communities_users")
 }

@@ -1,30 +1,55 @@
-import 'module-alias/register';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Prisma, UserRole } from '@prisma/client';
 
-import * as users from '@db/users';
+import * as communities from '@db/communities';
 
 const PRISMA_CLIENT = new PrismaClient();
 
-const USERS = [
+const COMMUNITIES: Prisma.CommunityCreateInput[] = [
   {
-    email: 'email1@gmail.com',
-    firstName: 'Jonathan',
-    lastName: 'Huang',
+    name: 'Subpar Sonics',
+    slug: 'subpar-sonics',
+    communityUsers: {
+      create: [
+        {
+          role: UserRole.ADMIN,
+          user: { create: { email: 'daniel@test.com', firstName: 'Daniel', lastName: 'Holliday' } },
+        },
+        {
+          role: UserRole.MEMBER,
+          user: { create: { email: 'min@test.com', firstName: 'Min', lastName: 'Woo' } },
+        },
+        {
+          role: UserRole.MEMBER,
+          user: { create: { email: 'jonathan@test.com', firstName: 'Jonathan', lastName: 'Huang' } },
+        },
+      ],
+    },
   },
   {
-    email: 'email2@gmail.com',
-    firstName: 'Elysa',
-    lastName: 'Kohrs',
+    name: 'Seattle Co-op',
+    slug: 'cg-coop',
+    communityUsers: {
+      create: [
+        {
+          role: UserRole.ADMIN,
+          user: { create: { email: 'stacie@test.com', firstName: 'Stacie', lastName: 'Lee' } },
+        },
+        {
+          role: UserRole.MEMBER,
+          user: { connect: { email: 'jonathan@test.com' } },
+        },
+      ],
+    },
   },
 ];
 
-async function seedUsers(): Promise<void> {
-  await Promise.all(USERS.map((user) => users.createUser(PRISMA_CLIENT, user)));
+async function seedCommunities(): Promise<void> {
+  await communities.createCommunity(PRISMA_CLIENT, COMMUNITIES[0]);
+  await communities.createCommunity(PRISMA_CLIENT, COMMUNITIES[1]);
 }
 
 async function seedAll(): Promise<void> {
-  await users.deleteAllUsers(PRISMA_CLIENT);
-  await seedUsers();
+  await seedCommunities();
 }
 
 seedAll();
