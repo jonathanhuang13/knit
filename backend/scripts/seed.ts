@@ -34,6 +34,10 @@ const COMMUNITIES: Prisma.CommunityCreateInput[] = [
           user: { create: { email: 'stacie@test.com', firstName: 'Stacie', lastName: 'Lee' } },
         },
         {
+          role: UserRole.ADMIN,
+          user: { create: { email: 'elysa@test.com', firstName: 'Elysa', lastName: 'Kohrs' } },
+        },
+        {
           role: UserRole.MEMBER,
           user: { connect: { email: 'jonathan@test.com' } },
         },

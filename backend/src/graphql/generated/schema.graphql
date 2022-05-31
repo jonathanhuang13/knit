@@ -2,17 +2,39 @@
 ### Do not make changes to this file directly
 
 
+type Community {
+  adminUsers: [User!]!
+  description: String
+  id: Int!
+  memberUsers: [User!]!
+  name: String!
+}
+
+type CommunityUser {
+  community: Community!
+  role: Role!
+  user: User!
+}
+
 type Mutation {
   createUser(email: String!, firstName: String, lastName: String): User!
 }
 
 type Query {
+  userByEmail(email: String!): User
   users: [User!]!
 }
 
+enum Role {
+  ADMIN
+  MEMBER
+}
+
 type User {
+  adminCommunities: [Community!]!
   email: String!
   firstName: String
   id: Int!
   lastName: String
+  memberCommunities: [Community!]!
 }

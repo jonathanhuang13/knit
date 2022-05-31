@@ -1,4 +1,14 @@
-import { Prisma, PrismaClient, Community } from '@prisma/client';
+import { Prisma, PrismaClient, Community, UserRole } from '@prisma/client';
+
+export async function getUsersInCommunity(client: PrismaClient, communityId: number, role?: UserRole) {
+  return client.communityUser.findMany({
+    where: {
+      communityId,
+      role,
+    },
+    include: { user: true, community: true },
+  });
+}
 
 export async function createCommunity(
   client: PrismaClient,
