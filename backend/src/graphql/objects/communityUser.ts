@@ -3,13 +3,14 @@ import { objectType, enumType } from 'nexus';
 import { User } from './user';
 import { Community } from './community';
 
-const RoleEnum = enumType({
-  name: 'Role',
+export enum UserRoles {
+  ADMIN = 'admin',
+  MEMBER = 'member',
+}
 
-  members: {
-    ADMIN: 1,
-    MEMBER: 2,
-  },
+export const UserRoleEnum = enumType({
+  name: 'UserRole',
+  members: UserRoles,
 });
 
 export const CommunityUser = objectType({
@@ -21,6 +22,6 @@ export const CommunityUser = objectType({
     t.field('community', {
       type: Community,
     });
-    t.field('role', { type: RoleEnum });
+    t.field('role', { type: UserRoleEnum });
   },
 });

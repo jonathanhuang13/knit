@@ -5,6 +5,7 @@
 
 
 import type { Context } from "./../context"
+import type { FieldAuthorizeResolver } from "nexus/dist/plugins/fieldAuthorizePlugin"
 
 
 
@@ -17,7 +18,7 @@ export interface NexusGenInputs {
 }
 
 export interface NexusGenEnums {
-  Role: 1 | 2
+  UserRole: "admin" | "member"
 }
 
 export interface NexusGenScalars {
@@ -36,7 +37,7 @@ export interface NexusGenObjects {
   }
   CommunityUser: { // root type
     community: NexusGenRootTypes['Community']; // Community!
-    role: NexusGenEnums['Role']; // Role!
+    role: NexusGenEnums['UserRole']; // UserRole!
     user: NexusGenRootTypes['User']; // User!
   }
   Mutation: {};
@@ -61,15 +62,15 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnu
 
 export interface NexusGenFieldTypes {
   Community: { // field return type
-    adminUsers: NexusGenRootTypes['User'][]; // [User!]!
+    adminUsers: ReadonlyArray<NexusGenRootTypes['User']>; // [User!]!
     description: string | null; // String
     id: number; // Int!
-    memberUsers: NexusGenRootTypes['User'][]; // [User!]!
+    memberUsers: ReadonlyArray<NexusGenRootTypes['User']>; // [User!]!
     name: string; // String!
   }
   CommunityUser: { // field return type
     community: NexusGenRootTypes['Community']; // Community!
-    role: NexusGenEnums['Role']; // Role!
+    role: NexusGenEnums['UserRole']; // UserRole!
     user: NexusGenRootTypes['User']; // User!
   }
   Mutation: { // field return type
@@ -77,15 +78,16 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     userByEmail: NexusGenRootTypes['User'] | null; // User
-    users: NexusGenRootTypes['User'][]; // [User!]!
+    users: ReadonlyArray<NexusGenRootTypes['User']>; // [User!]!
   }
   User: { // field return type
-    adminCommunities: NexusGenRootTypes['Community'][]; // [Community!]!
+    adminCommunities: ReadonlyArray<NexusGenRootTypes['Community']>; // [Community!]!
     email: string; // String!
     firstName: string | null; // String
     id: number; // Int!
     lastName: string | null; // String
-    memberCommunities: NexusGenRootTypes['Community'][]; // [Community!]!
+    memberCommunities: ReadonlyArray<NexusGenRootTypes['Community']>; // [Community!]!
+    secret: string; // String!
   }
 }
 
@@ -99,7 +101,7 @@ export interface NexusGenFieldTypeNames {
   }
   CommunityUser: { // field return type name
     community: 'Community'
-    role: 'Role'
+    role: 'UserRole'
     user: 'User'
   }
   Mutation: { // field return type name
@@ -116,6 +118,7 @@ export interface NexusGenFieldTypeNames {
     id: 'Int'
     lastName: 'String'
     memberCommunities: 'Community'
+    secret: 'String'
   }
 }
 
@@ -152,6 +155,11 @@ export type NexusGenScalarNames = keyof NexusGenScalars;
 
 export type NexusGenUnionNames = never;
 
+export type NexusGenDirectives = never
+
+export interface NexusGenDirectiveArgs {
+}
+
 export type NexusGenObjectsUsingAbstractStrategyIsTypeOf = never;
 
 export type NexusGenAbstractsUsingStrategyResolveType = never;
@@ -167,6 +175,8 @@ export type NexusGenFeaturesConfig = {
 export interface NexusGenTypes {
   context: Context;
   inputTypes: NexusGenInputs;
+  directives: NexusGenDirectives;
+  directiveArgs: NexusGenDirectiveArgs;
   rootTypes: NexusGenRootTypes;
   inputTypeShapes: NexusGenInputs & NexusGenEnums & NexusGenScalars;
   argTypes: NexusGenArgTypes;
@@ -217,6 +227,15 @@ declare global {
      * @see declarativeWrappingPlugin
      */
     required?: boolean
+    /**
+     * Authorization for an individual field. Returning "true"
+     * or "Promise<true>" means the field can be accessed.
+     * Returning "false" or "Promise<false>" will respond
+     * with a "Not Authorized" error for the field.
+     * Returning or throwing an error will also prevent the
+     * resolver from executing.
+     */
+    authorize?: FieldAuthorizeResolver<TypeName, FieldName>
   }
   interface NexusGenPluginInputFieldConfig<TypeName extends string, FieldName extends string> {
     /**

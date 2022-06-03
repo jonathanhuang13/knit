@@ -11,13 +11,23 @@ export const User = objectType({
     t.string('email');
     t.nullable.string('firstName');
     t.nullable.string('lastName');
-    t.field('adminCommunities', {
-      type: list(Community),
-      resolve: async (parent, args, ctx) => {
-        const ucs = await getCommunitiesForUser(ctx.prisma, parent.id, 'ADMIN');
-        return ucs.map((uc) => uc.community);
+    // Example of authorization
+    t.field('secret', {
+      type: 'String',
+      authorize: (_parent, _args, ctx) => {
+        return ctx.auth.isCommunityAdmin(1);
       },
-    });
+      resolve: (_parent, _args, _ctx) => {
+        return 'foo';
+      },
+    }),
+      t.field('adminCommunities', {
+        type: list(Community),
+        resolve: async (parent, args, ctx) => {
+          const ucs = await getCommunitiesForUser(ctx.prisma, parent.id, 'ADMIN');
+          return ucs.map((uc) => uc.community);
+        },
+      });
     t.field('memberCommunities', {
       type: list(Community),
       resolve: async (parent, args, ctx) => {

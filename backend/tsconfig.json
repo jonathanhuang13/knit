@@ -4,7 +4,8 @@
     "module": "commonjs",
     "lib": ["es2021"],
     "paths": {
-      "@db/*": ["./src/db/*"]
+      "@db/*": ["./src/db/*"],
+      "@external/*": ["./src/external/*"]
     },
     "moduleResolution": "node",
     "rootDirs": ["src"],
@@ -27,5 +28,6 @@
     // Remove if you want ts-node to do typechecking.
     "transpileOnly": true,
     "files": true
-  }
+  },
+  "files": ["./src/graphql/generated/nexus-typegen.ts"]
 }

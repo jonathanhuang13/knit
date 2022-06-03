@@ -12,7 +12,7 @@ type Community {
 
 type CommunityUser {
   community: Community!
-  role: Role!
+  role: UserRole!
   user: User!
 }
 
@@ -25,11 +25,6 @@ type Query {
   users: [User!]!
 }
 
-enum Role {
-  ADMIN
-  MEMBER
-}
-
 type User {
   adminCommunities: [Community!]!
   email: String!
@@ -37,4 +32,10 @@ type User {
   id: Int!
   lastName: String
   memberCommunities: [Community!]!
+  secret: String!
+}
+
+enum UserRole {
+  ADMIN
+  MEMBER
 }

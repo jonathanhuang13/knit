@@ -16,6 +16,7 @@ export const USERS_QUERY = gql`
     users {
       id
       email
+      secret
     }
   }
 `;
@@ -27,6 +28,7 @@ export interface UserQueryData {
 export interface User {
   id: string;
   email: string;
+  secret: string; // Example of authorization
 }
 
 export default function Home(_props: NativeStackScreenProps<AuthedStackParamList, 'Home'>) {
@@ -38,7 +40,12 @@ export default function Home(_props: NativeStackScreenProps<AuthedStackParamList
   }
 
   if (isError(remoteData)) {
-    return <Text>Error {remoteData.error}</Text>;
+    return (
+      <View>
+        <Text>Error: {remoteData.error.message ?? 'Unknown'}</Text>
+        <Button title="Sign out" onPress={() => signOut(auth)} />
+      </View>
+    );
   }
 
   return (

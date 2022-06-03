@@ -1,3 +1,5 @@
+import 'dotenv/config';
+import 'module-alias/register';
 import { ApolloServer } from 'apollo-server';
 import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core';
 
