@@ -1,22 +1,19 @@
 import React, { useState } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { UnAuthedStackParamList } from '@navigation/UnAuthed';
 import { Heading, VStack, Button, Box, Input, useToast } from 'native-base';
 
-import { UnAuthedStackParamList } from '@navigation/UnAuthed';
-
-// TODO: Google Authentication (https://dev.to/haydenbleasel/implementing-google-and-apple-login-hooks-with-expo-43-and-firebase-v9-pjm)
-
 const auth = getAuth();
-const VALIDATION_TOAST_ID = 'signup-not-valid-email-pw';
+const VALIDATION_TOAST_ID = 'login-not-valid-email-pw';
 
-export default function SignUp({ navigation }: NativeStackScreenProps<UnAuthedStackParamList, 'SignUp'>) {
+export default function LogIn({ navigation }: NativeStackScreenProps<UnAuthedStackParamList, 'Login'>) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const toast = useToast();
 
-  const handleClickSignUp = async () => {
+  const handleClickLogin = async () => {
     if (!email && !password) {
       if (!toast.isActive(VALIDATION_TOAST_ID)) {
         toast.show({
@@ -26,13 +23,11 @@ export default function SignUp({ navigation }: NativeStackScreenProps<UnAuthedSt
           backgroundColor: 'error.500',
         });
       }
-
       return;
     }
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      navigation.navigate('Login');
+      await signInWithEmailAndPassword(auth, email, password);
     } catch (e) {
       console.error(e);
 
@@ -43,7 +38,6 @@ export default function SignUp({ navigation }: NativeStackScreenProps<UnAuthedSt
       });
     }
   };
-
   return (
     <Box width="100%" height="100%">
       <VStack my="1/3" space={4} alignItems="center">
@@ -67,7 +61,7 @@ export default function SignUp({ navigation }: NativeStackScreenProps<UnAuthedSt
             secureTextEntry
           />
         </VStack>
-        <Button onPress={handleClickSignUp}>Sign Up</Button>
+        <Button onPress={handleClickLogin}>Sign Up</Button>
       </VStack>
     </Box>
   );

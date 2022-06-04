@@ -1,6 +1,7 @@
 import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { getAuth } from 'firebase/auth';
+import { NativeBaseProvider, Box } from 'native-base';
 
 import firebaseApp from '@external/firebase';
 import { getExpoServerIP } from '@utils/network';
@@ -32,7 +33,11 @@ const client = new ApolloClient({
 export default function App() {
   return (
     <ApolloProvider client={client}>
-      <RootNavigation />
+      <NativeBaseProvider>
+        <Box width="100%" height="100%" safeArea>
+          <RootNavigation />
+        </Box>
+      </NativeBaseProvider>
     </ApolloProvider>
   );
 }
