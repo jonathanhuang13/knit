@@ -14,8 +14,9 @@ export const User = objectType({
     // Example of authorization
     t.field('secret', {
       type: 'String',
-      authorize: (_parent, _args, ctx) => {
-        return ctx.auth.isCommunityAdmin(1);
+      authorize: async (parent, _args, ctx) => {
+        const isAuthorized = await ctx.auth.isCommunityAdmin(1);
+        return isAuthorized;
       },
       resolve: (_parent, _args, _ctx) => {
         return 'foo';

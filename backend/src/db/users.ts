@@ -12,6 +12,10 @@ export async function getUserByEmail(client: PrismaClient, email: string): Promi
   return client.user.findUnique({ where: { email } });
 }
 
+export async function getOrCreateUser(client: PrismaClient, email: string): Promise<User> {
+  return client.user.upsert({ where: { email }, update: {}, create: { email } });
+}
+
 export async function getCommunitiesForUser(client: PrismaClient, userId: number, role?: UserRole) {
   return client.communityUser.findMany({
     where: {

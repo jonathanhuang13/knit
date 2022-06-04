@@ -24,9 +24,7 @@ export const context: ContextFunction<ExpressContext, Context> = async ({ req })
         const email = await getFirebaseUserEmailFromAuth(req);
         if (!email) return false;
 
-        const user = await users.getUserByEmail(prismaClient, email);
-        if (!user) return false;
-
+        const user = await users.getOrCreateUser(prismaClient, email);
         const communityUser = await communityUsers.getCommunityUser(prismaClient, user.id, communityId);
         if (!communityUser || communityUser.role !== 'ADMIN') return false;
 

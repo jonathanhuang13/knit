@@ -1,13 +1,15 @@
 import React, { useContext } from 'react';
-import { Text, FlatList, View, Button } from 'react-native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { gql } from '@apollo/client';
-import { getAuth, signOut } from 'firebase/auth';
 
-import useRemoteDataQuery from '@hooks/useRemoteDataQuery';
+import { gql } from '@apollo/client';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { getAuth, signOut } from 'firebase/auth';
+import { Button, FlatList, Text, View } from 'react-native';
+
 import { isError, isLoading, isNotAsked } from '@utils/remoteData';
 
-import { AuthedUserContext, AuthedStackParamList } from '@navigation/Authed';
+import useRemoteDataQuery from '@hooks/useRemoteDataQuery';
+
+import { AuthedStackParamList, AuthedUserContext } from '@navigation/Authed';
 
 const auth = getAuth();
 
