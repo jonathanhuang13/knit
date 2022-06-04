@@ -59,6 +59,7 @@ function CommunitySidebarItem(props: CommunitySidebarItemProps) {
   return (
     <Pressable
       onPress={() => {
+        navigation.closeDrawer();
         navigation.navigate('Home', { community });
       }}
     >
