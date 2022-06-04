@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { Box, Button, Heading, Input, VStack, useToast } from 'native-base';
+
 import { UnAuthedStackParamList } from '@navigation/UnAuthed';
-import { Heading, VStack, Button, Box, Input, useToast } from 'native-base';
 
 const auth = getAuth();
 const VALIDATION_TOAST_ID = 'login-not-valid-email-pw';
@@ -61,7 +63,7 @@ export default function LogIn({ navigation }: NativeStackScreenProps<UnAuthedSta
             secureTextEntry
           />
         </VStack>
-        <Button onPress={handleClickLogin}>Sign Up</Button>
+        <Button onPress={handleClickLogin}>Log In</Button>
       </VStack>
     </Box>
   );
