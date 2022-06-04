@@ -4,6 +4,8 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "prettier": "prettier --loglevel error --write './src/**/*.ts'",
+    "generate": "graphql-codegen -r dotenv/config",
+    "generate-watch": "npm run generate -- --watch",
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
@@ -12,6 +14,10 @@
   },
   "dependencies": {
     "@apollo/client": "^3.6.5",
+    "@graphql-codegen/cli": "^2.6.2",
+    "@graphql-codegen/typed-document-node": "^2.2.11",
+    "@graphql-codegen/typescript": "^2.4.11",
+    "@graphql-codegen/typescript-operations": "^2.4.0",
     "@react-navigation/drawer": "^6.4.1",
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/native-stack": "^6.6.2",

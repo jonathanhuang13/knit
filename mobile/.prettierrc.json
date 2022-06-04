@@ -7,7 +7,7 @@
   "importOrder": [
     "^react$",
     "<THIRD_PARTY_MODULES>",
-    "^@external/(.*)$",
+    "^@(external)|(graphql)/(.*)$",
     "^@utils/(.*)$",
     "^@hooks/(.*)$",
     "^@(navigation)|(screens)/(.*)$",

@@ -13,6 +13,7 @@ module.exports = function (api) {
             '@screens': './src/screens',
             '@navigation': './src/navigation',
             '@external': './src/external',
+            '@graphql': './src/graphql',
           },
           extensions: ['.ios.js', '.android.js', '.js', '.jsx', '.json', '.tsx', '.ts', '.native.js'],
         },

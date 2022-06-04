@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 
-import { gql } from '@apollo/client';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { getAuth, signOut } from 'firebase/auth';
 import { Button, FlatList, Text, View } from 'react-native';
+
+import { UsersDocument, UsersQuery } from '@graphql/generated';
 
 import { isError, isLoading, isNotAsked } from '@utils/remoteData';
 
@@ -13,29 +14,9 @@ import { AuthedStackParamList, AuthedUserContext } from '@navigation/Authed';
 
 const auth = getAuth();
 
-export const USERS_QUERY = gql`
-  query Users {
-    users {
-      id
-      email
-      secret
-    }
-  }
-`;
-
-export interface UserQueryData {
-  users: User[];
-}
-
-export interface User {
-  id: string;
-  email: string;
-  secret: string; // Example of authorization
-}
-
 export default function Home(_props: NativeStackScreenProps<AuthedStackParamList, 'Home'>) {
   const user = useContext(AuthedUserContext);
-  const { remoteData } = useRemoteDataQuery<UserQueryData>(USERS_QUERY);
+  const { remoteData } = useRemoteDataQuery<UsersQuery>(UsersDocument);
 
   if (isLoading(remoteData) || isNotAsked(remoteData)) {
     return <Text>Loading</Text>;
