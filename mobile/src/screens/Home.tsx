@@ -4,17 +4,18 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { getAuth, signOut } from 'firebase/auth';
 import { Button, FlatList, Text, View } from 'react-native';
 
-import { UsersDocument, UsersQuery } from '@graphql/generated';
-
 import { isError, isLoading, isNotAsked } from '@utils/remoteData';
 
+import { UsersDocument, UsersQuery } from '@graphql/generated';
 import useRemoteDataQuery from '@hooks/useRemoteDataQuery';
 
 import { AuthedStackParamList, AuthedUserContext } from '@navigation/Authed';
 
 const auth = getAuth();
 
-export default function Home(_props: NativeStackScreenProps<AuthedStackParamList, 'Home'>) {
+export default function Home(props: NativeStackScreenProps<AuthedStackParamList, 'Home'>) {
+  const { community } = props.route.params;
+
   const user = useContext(AuthedUserContext);
   const { remoteData } = useRemoteDataQuery<UsersQuery>(UsersDocument);
 
@@ -34,7 +35,7 @@ export default function Home(_props: NativeStackScreenProps<AuthedStackParamList
   return (
     <View>
       <Text>Hello {user.email}</Text>
-      <FlatList data={remoteData.data.users} renderItem={({ item }) => <Text>{item.email}</Text>} />
+      <Text>Community {community.name}</Text>
       <Button title="Sign out" onPress={() => signOut(auth)} />
     </View>
   );

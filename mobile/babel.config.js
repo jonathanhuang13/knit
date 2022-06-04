@@ -14,6 +14,7 @@ module.exports = function (api) {
             '@navigation': './src/navigation',
             '@external': './src/external',
             '@graphql': './src/graphql',
+            '@components': './src/components',
           },
           extensions: ['.ios.js', '.android.js', '.js', '.jsx', '.json', '.tsx', '.ts', '.native.js'],
         },

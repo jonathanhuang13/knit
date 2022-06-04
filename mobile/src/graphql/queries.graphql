@@ -1,0 +1,25 @@
+query Users {
+  users {
+    id
+    email
+  }
+}
+
+query AuthHome($email: String!) {
+  userByEmail(email: $email) {
+    id
+    email
+    adminCommunities {
+      ...SidebarCommunity
+    }
+    memberCommunities {
+      ...SidebarCommunity
+    }
+  }
+}
+
+fragment SidebarCommunity on Community {
+  id
+  name
+  description
+}
