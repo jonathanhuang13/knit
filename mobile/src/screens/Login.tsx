@@ -52,6 +52,10 @@ export default function LogIn({ navigation }: NativeStackScreenProps<UnAuthedSta
             placeholder="email"
             onChangeText={setEmail}
             value={email}
+            keyboardType="email-address"
+            autoComplete="email"
+            autoCapitalize="none"
+            autoCorrect={false}
           />
           <Input
             maxWidth="64"
@@ -61,6 +65,8 @@ export default function LogIn({ navigation }: NativeStackScreenProps<UnAuthedSta
             onChangeText={setPassword}
             value={password}
             secureTextEntry
+            returnKeyType="go"
+            onSubmitEditing={handleClickLogin}
           />
         </VStack>
         <Button onPress={handleClickLogin}>Log In</Button>

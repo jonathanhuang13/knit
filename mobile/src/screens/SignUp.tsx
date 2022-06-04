@@ -57,6 +57,10 @@ export default function SignUp({ navigation }: NativeStackScreenProps<UnAuthedSt
             placeholder="email"
             onChangeText={setEmail}
             value={email}
+            keyboardType="email-address"
+            autoComplete="email"
+            autoCapitalize="none"
+            autoCorrect={false}
           />
           <Input
             maxWidth="64"
@@ -66,6 +70,8 @@ export default function SignUp({ navigation }: NativeStackScreenProps<UnAuthedSt
             onChangeText={setPassword}
             value={password}
             secureTextEntry
+            returnKeyType="go"
+            onSubmitEditing={handleClickSignUp}
           />
         </VStack>
         <Button onPress={handleClickSignUp}>Sign Up</Button>
