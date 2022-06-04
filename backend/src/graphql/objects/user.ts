@@ -1,4 +1,4 @@
-import { objectType, extendType, nonNull, list, stringArg, nullable } from 'nexus';
+import { extendType, list, nonNull, nullable, objectType, stringArg } from 'nexus';
 
 import { createUser, getAllUsers, getCommunitiesForUser, getUserByEmail } from '@db/users';
 

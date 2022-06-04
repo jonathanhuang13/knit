@@ -1,5 +1,5 @@
+import { declarativeWrappingPlugin, fieldAuthorizePlugin, makeSchema } from 'nexus';
 import { join } from 'path';
-import { makeSchema, declarativeWrappingPlugin, fieldAuthorizePlugin } from 'nexus';
 
 import * as types from './objects';
 

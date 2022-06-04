@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
+
+import { User, getAuth, onAuthStateChanged } from 'firebase/auth';
 
 import firebaseApp from '@external/firebase';
 

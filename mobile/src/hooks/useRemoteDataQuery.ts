@@ -1,4 +1,3 @@
-import { DocumentNode } from 'graphql';
 import {
   ApolloError,
   OperationVariables,
@@ -7,6 +6,7 @@ import {
   TypedDocumentNode,
   useQuery,
 } from '@apollo/client';
+import { DocumentNode } from 'graphql';
 
 import { RemoteData } from '../utils/remoteData';
 

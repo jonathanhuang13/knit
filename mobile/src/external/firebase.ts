@@ -1,6 +1,6 @@
+import Constants from 'expo-constants';
 import { initializeApp } from 'firebase/app';
 import { connectAuthEmulator, getAuth } from 'firebase/auth';
-import Constants from 'expo-constants';
 
 import { getExpoServerIP } from '@utils/network';
 

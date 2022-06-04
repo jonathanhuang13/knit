@@ -1,4 +1,4 @@
-import { objectType, list } from 'nexus';
+import { list, objectType } from 'nexus';
 
 import { getUsersInCommunity } from '@db/communities';
 

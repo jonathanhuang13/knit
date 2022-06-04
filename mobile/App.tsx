@@ -1,9 +1,10 @@
-import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink } from '@apollo/client';
+import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { getAuth } from 'firebase/auth';
-import { NativeBaseProvider, Box } from 'native-base';
+import { Box, NativeBaseProvider } from 'native-base';
 
 import firebaseApp from '@external/firebase';
+
 import { getExpoServerIP } from '@utils/network';
 
 import RootNavigation from './src/navigation';

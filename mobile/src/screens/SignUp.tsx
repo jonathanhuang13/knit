@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { Heading, VStack, Button, Box, Input, useToast } from 'native-base';
+import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { Box, Button, Heading, Input, VStack, useToast } from 'native-base';
 
 import { UnAuthedStackParamList } from '@navigation/UnAuthed';
 

@@ -1,5 +1,5 @@
 import { ExpressContext } from 'apollo-server-express';
-import { initializeApp, applicationDefault } from 'firebase-admin/app';
+import { applicationDefault, initializeApp } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
 
 const app = initializeApp({

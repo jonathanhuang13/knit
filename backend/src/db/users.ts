@@ -1,4 +1,4 @@
-import { User, Prisma, PrismaClient, UserRole } from '@prisma/client';
+import { Prisma, PrismaClient, User, UserRole } from '@prisma/client';
 
 export async function getAllUsers(client: PrismaClient): Promise<User[]> {
   return client.user.findMany();

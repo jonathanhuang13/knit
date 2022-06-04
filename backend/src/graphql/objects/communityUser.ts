@@ -1,7 +1,7 @@
-import { objectType, enumType } from 'nexus';
+import { enumType, objectType } from 'nexus';
 
-import { User } from './user';
 import { Community } from './community';
+import { User } from './user';
 
 export enum UserRoles {
   ADMIN = 'admin',
