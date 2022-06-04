@@ -1,3 +1,6 @@
+// prettier-ignore
+import 'react-native-gesture-handler';
+
 import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { getAuth } from 'firebase/auth';

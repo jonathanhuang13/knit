@@ -1,6 +1,7 @@
 import React, { createContext } from 'react';
+
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { User } from 'firebase/auth';
 
 import HomeScreen from '@screens/Home';
@@ -9,7 +10,7 @@ export type AuthedStackParamList = {
   Home: undefined;
 };
 
-const Stack = createNativeStackNavigator<AuthedStackParamList>();
+const Drawer = createDrawerNavigator();
 
 interface AuthedProps {
   user: User;
@@ -19,9 +20,9 @@ export default function Authed({ user }: AuthedProps) {
   return (
     <AuthedUserContext.Provider value={user}>
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Home" component={HomeScreen} />
-        </Stack.Navigator>
+        <Drawer.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
+          <Drawer.Screen name="Home" component={HomeScreen} />
+        </Drawer.Navigator>
       </NavigationContainer>
     </AuthedUserContext.Provider>
   );
