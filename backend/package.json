@@ -9,7 +9,7 @@
     "lint": "eslint --ext .ts src",
     "dev": "ts-node-dev -r tsconfig-paths/register src/index.ts",
     "build": "npm run transpile && npm run prettier && npm run lint",
-    "start": "npm run build && node dist/src/index.js"
+    "start": "npm run build && node -r module-alias/register dist/src/index.js"
   },
   "keywords": [],
   "author": "",
