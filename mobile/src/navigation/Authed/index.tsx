@@ -2,8 +2,9 @@ import React, { createContext } from 'react';
 
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
-import { User, getAuth, signOut } from 'firebase/auth';
+import { getAuth, signOut } from 'firebase/auth';
 import { Button, Spinner, Text } from 'native-base';
+import { OverlayProvider } from 'stream-chat-expo';
 
 import { isError, isLoading, isNotAsked } from '@utils/remoteData';
 
@@ -51,21 +52,27 @@ export default function Authed({ email }: AuthedProps) {
       {hasNoCommunities ? (
         <Button onPress={() => signOut(auth)}>Sign out</Button>
       ) : (
-        <NavigationContainer>
-          <Drawer.Navigator
-            initialRouteName="Community"
-            screenOptions={{ headerShown: false }}
-            drawerContent={(props) => (
-              <Sidebar adminCommunities={adminCommunities} memberCommunities={memberCommunities} {...props} />
-            )}
-          >
-            <Drawer.Screen
-              name="Community"
-              component={Community}
-              initialParams={{ community: adminCommunities[0] ?? memberCommunities[0] }}
-            />
-          </Drawer.Navigator>
-        </NavigationContainer>
+        <OverlayProvider>
+          <NavigationContainer>
+            <Drawer.Navigator
+              initialRouteName="Community"
+              screenOptions={{ headerShown: false }}
+              drawerContent={(props) => (
+                <Sidebar
+                  adminCommunities={adminCommunities}
+                  memberCommunities={memberCommunities}
+                  {...props}
+                />
+              )}
+            >
+              <Drawer.Screen
+                name="Community"
+                component={Community}
+                initialParams={{ community: adminCommunities[0] ?? memberCommunities[0] }}
+              />
+            </Drawer.Navigator>
+          </NavigationContainer>
+        </OverlayProvider>
       )}
     </AuthedUserContext.Provider>
   );

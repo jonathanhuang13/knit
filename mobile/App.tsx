@@ -38,7 +38,8 @@ export default function App() {
   return (
     <ApolloProvider client={client}>
       <NativeBaseProvider>
-        <Box width="100%" height="100%" safeArea>
+        {/* <- No need for safearea because react navigation does it for you*/}
+        <Box width="100%" height="100%">
           <RootNavigation />
         </Box>
       </NativeBaseProvider>

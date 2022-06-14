@@ -1,43 +1,35 @@
 import React, { useContext } from 'react';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { getAuth, signOut } from 'firebase/auth';
-import { Button, Text, View } from 'react-native';
+import Constants from 'expo-constants';
+import { Text } from 'react-native';
+import { StreamChat } from 'stream-chat';
+import { Channel, MessageInput, MessageList, Chat as StreamChatExpo } from 'stream-chat-expo';
 
-import { isError, isLoading, isNotAsked } from '@utils/remoteData';
-
-import { UsersDocument, UsersQuery } from '@graphql/generated';
-import useRemoteDataQuery from '@hooks/useRemoteDataQuery';
+import useChatClient from '@hooks/useChatClient';
 
 import { AuthedUserContext } from '@navigation/Authed';
 import { CommunityContext, TabsParamList } from '@navigation/Authed/Community';
 
-const auth = getAuth();
+const chatClient = StreamChat.getInstance(Constants.manifest?.extra?.streamChatApiKey);
 
 export default function Chat(_props: NativeStackScreenProps<TabsParamList, 'Events'>) {
+  const { clientIsReady } = useChatClient('Aaron_221876ba-9c2b-421e-b796-7a27825c5d66', 'Aaron');
+
   const user = useContext(AuthedUserContext);
   const community = useContext(CommunityContext);
 
-  const { remoteData } = useRemoteDataQuery<UsersQuery>(UsersDocument);
-
-  if (isLoading(remoteData) || isNotAsked(remoteData)) {
+  if (!clientIsReady) {
     return <Text>Loading</Text>;
   }
-
-  if (isError(remoteData)) {
-    return (
-      <View>
-        <Text>Error: {remoteData.error.message ?? 'Unknown'}</Text>
-        <Button title="Sign out" onPress={() => signOut(auth)} />
-      </View>
-    );
-  }
+  const channel = chatClient.getChannelById('messaging', 'Test_f9314281-7349-43b9-b823-c0a62ea95529', {});
 
   return (
-    <View>
-      <Text>
-        Hi {user.email}. Welcome to {community.name}
-      </Text>
-    </View>
+    <StreamChatExpo client={chatClient}>
+      <Channel channel={channel}>
+        <MessageList />
+        <MessageInput />
+      </Channel>
+    </StreamChatExpo>
   );
 }
