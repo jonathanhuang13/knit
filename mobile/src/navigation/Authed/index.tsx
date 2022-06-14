@@ -11,55 +11,57 @@ import {
   AuthHomeDocument,
   AuthHomeQuery,
   AuthHomeQueryVariables,
-  SidebarCommunityFragment,
+  CommunityBasicsFragment,
+  UserBasicsFragment,
 } from '@graphql/generated';
 import useRemoteDataQuery from '@hooks/useRemoteDataQuery';
 
-import HomeScreen from '@screens/Home';
-
 import Sidebar from '@components/Sidebar';
 
+import Community from './Community';
+
 export type AuthedStackParamList = {
-  Home: { community: SidebarCommunityFragment };
+  Community: { community: CommunityBasicsFragment };
 };
 
 const Drawer = createDrawerNavigator<AuthedStackParamList>();
 
 interface AuthedProps {
-  user: User;
   email: string;
 }
 
 const auth = getAuth();
 
-export default function Authed({ user, email }: AuthedProps) {
+export default function Authed({ email }: AuthedProps) {
   const { remoteData } = useRemoteDataQuery<AuthHomeQuery, AuthHomeQueryVariables>(AuthHomeDocument, {
     variables: { email },
   });
 
-  if (isLoading(remoteData) || isNotAsked(remoteData)) return <Spinner />;
-  if (isError(remoteData)) return <Text>Error: {remoteData.error.message}</Text>;
+  if (isError(remoteData)) {
+    return <Text>Error: {remoteData.error?.message}</Text>;
+  }
+  if (isLoading(remoteData) || isNotAsked(remoteData) || !remoteData.data.userByEmail) return <Spinner />;
 
-  const adminCommunities = remoteData.data.userByEmail?.adminCommunities ?? [];
-  const memberCommunities = remoteData.data.userByEmail?.memberCommunities ?? [];
+  const adminCommunities = remoteData.data.userByEmail.adminCommunities ?? [];
+  const memberCommunities = remoteData.data.userByEmail.memberCommunities ?? [];
   const hasNoCommunities = adminCommunities.length === 0 && memberCommunities.length === 0;
 
   return (
-    <AuthedUserContext.Provider value={{ ...user, email }}>
+    <AuthedUserContext.Provider value={remoteData.data.userByEmail}>
       {hasNoCommunities ? (
         <Button onPress={() => signOut(auth)}>Sign out</Button>
       ) : (
         <NavigationContainer>
           <Drawer.Navigator
-            initialRouteName="Home"
+            initialRouteName="Community"
             screenOptions={{ headerShown: false }}
             drawerContent={(props) => (
               <Sidebar adminCommunities={adminCommunities} memberCommunities={memberCommunities} {...props} />
             )}
           >
             <Drawer.Screen
-              name="Home"
-              component={HomeScreen}
+              name="Community"
+              component={Community}
               initialParams={{ community: adminCommunities[0] ?? memberCommunities[0] }}
             />
           </Drawer.Navigator>
@@ -69,8 +71,4 @@ export default function Authed({ user, email }: AuthedProps) {
   );
 }
 
-interface AuthedUser extends User {
-  email: string;
-}
-
-export const AuthedUserContext = createContext<AuthedUser>({} as AuthedUser);
+export const AuthedUserContext = createContext<UserBasicsFragment>({} as UserBasicsFragment);

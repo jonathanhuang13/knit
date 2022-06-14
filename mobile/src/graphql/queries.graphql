@@ -1,25 +1,30 @@
 query Users {
   users {
-    id
-    email
+    ...UserBasics
   }
 }
 
 query AuthHome($email: String!) {
   userByEmail(email: $email) {
-    id
-    email
+    ...UserBasics
     adminCommunities {
-      ...SidebarCommunity
+      ...CommunityBasics
     }
     memberCommunities {
-      ...SidebarCommunity
+      ...CommunityBasics
     }
   }
 }
 
-fragment SidebarCommunity on Community {
+fragment CommunityBasics on Community {
   id
   name
   description
+}
+
+fragment UserBasics on User {
+  id
+  firstName
+  lastName
+  email
 }

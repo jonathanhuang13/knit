@@ -2,21 +2,22 @@ import React, { useContext } from 'react';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { getAuth, signOut } from 'firebase/auth';
-import { Button, FlatList, Text, View } from 'react-native';
+import { Button, Text, View } from 'react-native';
 
 import { isError, isLoading, isNotAsked } from '@utils/remoteData';
 
 import { UsersDocument, UsersQuery } from '@graphql/generated';
 import useRemoteDataQuery from '@hooks/useRemoteDataQuery';
 
-import { AuthedStackParamList, AuthedUserContext } from '@navigation/Authed';
+import { AuthedUserContext } from '@navigation/Authed';
+import { CommunityContext, TabsParamList } from '@navigation/Authed/Community';
 
 const auth = getAuth();
 
-export default function Home(props: NativeStackScreenProps<AuthedStackParamList, 'Home'>) {
-  const { community } = props.route.params;
-
+export default function Chat(_props: NativeStackScreenProps<TabsParamList, 'Events'>) {
   const user = useContext(AuthedUserContext);
+  const community = useContext(CommunityContext);
+
   const { remoteData } = useRemoteDataQuery<UsersQuery>(UsersDocument);
 
   if (isLoading(remoteData) || isNotAsked(remoteData)) {
@@ -34,9 +35,9 @@ export default function Home(props: NativeStackScreenProps<AuthedStackParamList,
 
   return (
     <View>
-      <Text>Hello {user.email}</Text>
-      <Text>Community {community.name}</Text>
-      <Button title="Sign out" onPress={() => signOut(auth)} />
+      <Text>
+        Hi {user.email}. Welcome to {community.name}
+      </Text>
     </View>
   );
 }

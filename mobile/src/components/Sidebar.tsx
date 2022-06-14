@@ -1,13 +1,13 @@
 import { DrawerContentComponentProps, DrawerContentScrollView } from '@react-navigation/drawer';
 import { Box, Center, HStack, Heading, Pressable, Square, Text, VStack, useTheme } from 'native-base';
 
-import { SidebarCommunityFragment } from '@graphql/generated';
+import { CommunityBasicsFragment } from '@graphql/generated';
 
 import { AuthedStackParamList } from '@navigation/Authed';
 
 interface Props extends DrawerContentComponentProps {
-  adminCommunities: SidebarCommunityFragment[];
-  memberCommunities: SidebarCommunityFragment[];
+  adminCommunities: CommunityBasicsFragment[];
+  memberCommunities: CommunityBasicsFragment[];
 }
 
 export default function Sidebar(props: Props) {
@@ -25,7 +25,7 @@ export default function Sidebar(props: Props) {
 
 interface CommunitySidebarGroupProps extends DrawerContentComponentProps {
   heading: string;
-  communities: SidebarCommunityFragment[];
+  communities: CommunityBasicsFragment[];
 }
 
 function CommunitySidebarGroup(props: CommunitySidebarGroupProps) {
@@ -47,20 +47,20 @@ function CommunitySidebarGroup(props: CommunitySidebarGroupProps) {
 }
 
 interface CommunitySidebarItemProps extends DrawerContentComponentProps {
-  community: SidebarCommunityFragment;
+  community: CommunityBasicsFragment;
 }
 
 function CommunitySidebarItem(props: CommunitySidebarItemProps) {
   const { community, navigation, state } = props;
 
-  const currentRouteParams = state.routes[0].params as AuthedStackParamList['Home'] | undefined;
+  const currentRouteParams = state.routes[0].params as AuthedStackParamList['Community'] | undefined;
   const isActive = currentRouteParams ? currentRouteParams.community.id === community.id : false;
 
   return (
     <Pressable
       onPress={() => {
         navigation.closeDrawer();
-        navigation.navigate('Home', { community });
+        navigation.navigate('Community', { community });
       }}
     >
       <HStack height="16" p="2" alignItems="center" backgroundColor={isActive ? 'coolGray.100' : 'white'}>

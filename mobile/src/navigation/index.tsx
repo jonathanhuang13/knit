@@ -8,5 +8,5 @@ import UnAuthStack from './UnAuthed';
 export default function RootNavigation() {
   const { user } = useAuth();
 
-  return user && user.email ? <AuthStack user={user} email={user.email} /> : <UnAuthStack />;
+  return user && user.email ? <AuthStack email={user.email} /> : <UnAuthStack />;
 }
