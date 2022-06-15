@@ -82,6 +82,7 @@ export interface NexusGenFieldTypes {
   }
   User: { // field return type
     adminCommunities: ReadonlyArray<NexusGenRootTypes['Community']>; // [Community!]!
+    chatToken: string; // String!
     email: string; // String!
     firstName: string | null; // String
     id: number; // Int!
@@ -113,6 +114,7 @@ export interface NexusGenFieldTypeNames {
   }
   User: { // field return type name
     adminCommunities: 'Community'
+    chatToken: 'String'
     email: 'String'
     firstName: 'String'
     id: 'Int'

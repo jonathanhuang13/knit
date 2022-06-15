@@ -27,6 +27,7 @@ type Query {
 
 type User {
   adminCommunities: [Community!]!
+  chatToken: String!
   email: String!
   firstName: String
   id: Int!

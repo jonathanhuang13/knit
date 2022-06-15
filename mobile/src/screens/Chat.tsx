@@ -14,10 +14,10 @@ import { CommunityContext, TabsParamList } from '@navigation/Authed/Community';
 const chatClient = StreamChat.getInstance(Constants.manifest?.extra?.streamChatApiKey);
 
 export default function Chat(_props: NativeStackScreenProps<TabsParamList, 'Events'>) {
-  const { clientIsReady } = useChatClient('Aaron_221876ba-9c2b-421e-b796-7a27825c5d66', 'Aaron');
-
   const user = useContext(AuthedUserContext);
   const community = useContext(CommunityContext);
+
+  const { clientIsReady } = useChatClient(user.id, user.chatToken);
 
   if (!clientIsReady) {
     return <Text>Loading</Text>;

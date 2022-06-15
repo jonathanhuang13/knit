@@ -13,7 +13,7 @@ import {
   AuthHomeQuery,
   AuthHomeQueryVariables,
   CommunityBasicsFragment,
-  UserBasicsFragment,
+  SelfFragment,
 } from '@graphql/generated';
 import useRemoteDataQuery from '@hooks/useRemoteDataQuery';
 
@@ -78,4 +78,4 @@ export default function Authed({ email }: AuthedProps) {
   );
 }
 
-export const AuthedUserContext = createContext<UserBasicsFragment>({} as UserBasicsFragment);
+export const AuthedUserContext = createContext<SelfFragment>({} as SelfFragment);

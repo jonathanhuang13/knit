@@ -1,12 +1,14 @@
 query Users {
   users {
-    ...UserBasics
+    id
+    firstName
+    lastName
   }
 }
 
 query AuthHome($email: String!) {
   userByEmail(email: $email) {
-    ...UserBasics
+    ...Self
     adminCommunities {
       ...CommunityBasics
     }
@@ -22,9 +24,10 @@ fragment CommunityBasics on Community {
   description
 }
 
-fragment UserBasics on User {
+fragment Self on User {
   id
   firstName
   lastName
   email
+  chatToken
 }

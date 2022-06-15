@@ -32,6 +32,17 @@ export async function createUser(client: PrismaClient, data: Prisma.UserCreateIn
   });
 }
 
+export async function updateUser(
+  client: PrismaClient,
+  userId: number,
+  data: Prisma.UserUpdateInput,
+): Promise<User> {
+  return client.user.update({
+    where: { id: userId },
+    data: data,
+  });
+}
+
 export async function deleteAllUsers(client: PrismaClient) {
   await client.user.deleteMany({});
 }

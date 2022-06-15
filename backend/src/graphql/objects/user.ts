@@ -1,6 +1,8 @@
 import { extendType, list, nonNull, nullable, objectType, stringArg } from 'nexus';
 
-import { createUser, getAllUsers, getCommunitiesForUser, getUserByEmail } from '@db/users';
+import { getAllUsers, getCommunitiesForUser } from '@db/users';
+
+import { createUser, getUserByEmail, getUserChatToken } from '@lib/users';
 
 import { Community } from './community';
 
@@ -11,6 +13,30 @@ export const User = objectType({
     t.string('email');
     t.nullable.string('firstName');
     t.nullable.string('lastName');
+    t.field('chatToken', {
+      type: 'String',
+      authorize: async (parent, _args, ctx) => {
+        return ctx.auth.isSelf(parent.id);
+      },
+      resolve: (parent, _args, ctx) => {
+        return getUserChatToken(ctx.prisma, parent.id);
+      },
+    });
+    t.field('adminCommunities', {
+      type: list(Community),
+      resolve: async (parent, args, ctx) => {
+        const ucs = await getCommunitiesForUser(ctx.prisma, parent.id, 'ADMIN');
+        return ucs.map((uc) => uc.community);
+      },
+    });
+    t.field('memberCommunities', {
+      type: list(Community),
+      resolve: async (parent, args, ctx) => {
+        const ucs = await getCommunitiesForUser(ctx.prisma, parent.id, 'MEMBER');
+        return ucs.map((uc) => uc.community);
+      },
+    });
+
     // Example of authorization
     t.field('secret', {
       type: 'String',
@@ -20,20 +46,6 @@ export const User = objectType({
       },
       resolve: (_parent, _args, _ctx) => {
         return 'foo';
-      },
-    }),
-      t.field('adminCommunities', {
-        type: list(Community),
-        resolve: async (parent, args, ctx) => {
-          const ucs = await getCommunitiesForUser(ctx.prisma, parent.id, 'ADMIN');
-          return ucs.map((uc) => uc.community);
-        },
-      });
-    t.field('memberCommunities', {
-      type: list(Community),
-      resolve: async (parent, args, ctx) => {
-        const ucs = await getCommunitiesForUser(ctx.prisma, parent.id, 'MEMBER');
-        return ucs.map((uc) => uc.community);
       },
     });
   },
