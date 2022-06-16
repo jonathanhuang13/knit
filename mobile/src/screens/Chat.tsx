@@ -17,12 +17,12 @@ export default function Chat(_props: NativeStackScreenProps<TabsParamList, 'Even
   const user = useContext(AuthedUserContext);
   const community = useContext(CommunityContext);
 
-  const { clientIsReady } = useChatClient(user.id, user.chatToken);
+  const { clientIsReady } = useChatClient(user.chatUserId, user.chatToken);
 
   if (!clientIsReady) {
     return <Text>Loading</Text>;
   }
-  const channel = chatClient.getChannelById('messaging', 'Test_f9314281-7349-43b9-b823-c0a62ea95529', {});
+  const channel = chatClient.getChannelById('messaging', community.chatChannelId, {});
 
   return (
     <StreamChatExpo client={chatClient}>

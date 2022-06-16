@@ -1,8 +1,10 @@
 import { extendType, list, nonNull, nullable, objectType, stringArg } from 'nexus';
 
-import { getAllUsers, getCommunitiesForUser } from '@db/users';
+import * as stream from '@external/stream';
 
-import { createUser, getUserByEmail, getUserChatToken } from '@lib/users';
+import { getAllUsers } from '@db/users';
+
+import { createUser, getCommunitiesForUser, getUserByEmail, getUserChatToken } from '@lib/users';
 
 import { Community } from './community';
 
@@ -13,6 +15,12 @@ export const User = objectType({
     t.string('email');
     t.nullable.string('firstName');
     t.nullable.string('lastName');
+    t.field('chatUserId', {
+      type: 'String',
+      resolve: (parent, _args, _ctx) => {
+        return stream.getStreamUserId(parent.id);
+      },
+    });
     t.field('chatToken', {
       type: 'String',
       authorize: async (parent, _args, ctx) => {

@@ -4,15 +4,15 @@ import { StreamChat } from 'stream-chat';
 
 const chatClient = StreamChat.getInstance(Constants.manifest?.extra?.streamChatApiKey);
 
-export default function useChatClient(userId: number, token?: string) {
+export default function useChatClient(streamUserId: string, token?: string) {
   const [clientIsReady, setClientIsReady] = useState(false);
 
   useEffect(() => {
     const setupClient = async () => {
       try {
         await chatClient.connectUser(
-          { id: userId.toString() },
-          token ?? chatClient.devToken(userId.toString()),
+          { id: streamUserId },
+          token ?? chatClient.devToken(streamUserId.toString()),
         );
         setClientIsReady(true);
       } catch (error) {

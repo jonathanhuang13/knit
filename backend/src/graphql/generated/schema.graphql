@@ -4,6 +4,7 @@
 
 type Community {
   adminUsers: [User!]!
+  chatChannelId: String!
   description: String
   id: Int!
   memberUsers: [User!]!
@@ -28,6 +29,7 @@ type Query {
 type User {
   adminCommunities: [Community!]!
   chatToken: String!
+  chatUserId: String!
   email: String!
   firstName: String
   id: Int!

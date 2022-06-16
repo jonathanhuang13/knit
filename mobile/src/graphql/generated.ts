@@ -16,6 +16,7 @@ export type Scalars = {
 export type Community = {
   __typename?: 'Community';
   adminUsers: Array<User>;
+  chatChannelId: Scalars['String'];
   description?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
   memberUsers: Array<User>;
@@ -56,6 +57,7 @@ export type User = {
   __typename?: 'User';
   adminCommunities: Array<Community>;
   chatToken: Scalars['String'];
+  chatUserId: Scalars['String'];
   email: Scalars['String'];
   firstName?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
@@ -79,13 +81,13 @@ export type AuthHomeQueryVariables = Exact<{
 }>;
 
 
-export type AuthHomeQuery = { __typename?: 'Query', userByEmail?: { __typename?: 'User', id: number, firstName?: string | null, lastName?: string | null, email: string, chatToken: string, adminCommunities: Array<{ __typename?: 'Community', id: number, name: string, description?: string | null }>, memberCommunities: Array<{ __typename?: 'Community', id: number, name: string, description?: string | null }> } | null };
+export type AuthHomeQuery = { __typename?: 'Query', userByEmail?: { __typename?: 'User', id: number, firstName?: string | null, lastName?: string | null, email: string, chatUserId: string, chatToken: string, adminCommunities: Array<{ __typename?: 'Community', id: number, name: string, description?: string | null, chatChannelId: string }>, memberCommunities: Array<{ __typename?: 'Community', id: number, name: string, description?: string | null, chatChannelId: string }> } | null };
 
-export type CommunityBasicsFragment = { __typename?: 'Community', id: number, name: string, description?: string | null };
+export type CommunityBasicsFragment = { __typename?: 'Community', id: number, name: string, description?: string | null, chatChannelId: string };
 
-export type SelfFragment = { __typename?: 'User', id: number, firstName?: string | null, lastName?: string | null, email: string, chatToken: string };
+export type SelfFragment = { __typename?: 'User', id: number, firstName?: string | null, lastName?: string | null, email: string, chatUserId: string, chatToken: string };
 
-export const CommunityBasicsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CommunityBasics"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Community"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]} as unknown as DocumentNode<CommunityBasicsFragment, unknown>;
-export const SelfFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Self"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"User"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"chatToken"}}]}}]} as unknown as DocumentNode<SelfFragment, unknown>;
+export const CommunityBasicsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CommunityBasics"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Community"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"chatChannelId"}}]}}]} as unknown as DocumentNode<CommunityBasicsFragment, unknown>;
+export const SelfFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Self"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"User"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"chatUserId"}},{"kind":"Field","name":{"kind":"Name","value":"chatToken"}}]}}]} as unknown as DocumentNode<SelfFragment, unknown>;
 export const UsersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Users"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"users"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}}]}}]}}]} as unknown as DocumentNode<UsersQuery, UsersQueryVariables>;
 export const AuthHomeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AuthHome"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userByEmail"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Self"}},{"kind":"Field","name":{"kind":"Name","value":"adminCommunities"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"CommunityBasics"}}]}},{"kind":"Field","name":{"kind":"Name","value":"memberCommunities"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"CommunityBasics"}}]}}]}}]}},...SelfFragmentDoc.definitions,...CommunityBasicsFragmentDoc.definitions]} as unknown as DocumentNode<AuthHomeQuery, AuthHomeQueryVariables>;

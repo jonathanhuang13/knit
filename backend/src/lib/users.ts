@@ -1,4 +1,5 @@
-import { Prisma, PrismaClient, User } from '@prisma/client';
+import { Prisma, PrismaClient, User, UserRole } from '@prisma/client';
+import * as bluebird from 'bluebird';
 
 import * as stream from '@external/stream';
 
@@ -13,11 +14,21 @@ export async function getUserByEmail(client: PrismaClient, email: string): Promi
   return user;
 }
 
+export async function getCommunitiesForUser(client: PrismaClient, userId: number, role?: UserRole) {
+  const communities = await users.getCommunitiesForUser(client, userId, role);
+
+  // Side effects
+  // TODO: catch error
+  await bluebird.map(communities, (c) => stream.addUsersToChannel(c.community, [c]));
+
+  return communities;
+}
+
 export async function createUser(client: PrismaClient, data: Prisma.UserCreateInput): Promise<User> {
   const user = await users.createUser(client, data);
 
   // Side effects
-  stream.upsertUser(user.id, getName(user));
+  await stream.upsertUser(user.id, getName(user));
 
   return user;
 }
@@ -37,7 +48,7 @@ export async function getUserChatToken(client: PrismaClient, userId: number): Pr
   const user = await users.getUser(client, userId);
   if (!user) throw new Error(`User ${userId} not found`);
 
-  stream.upsertUser(user.id, getName(user));
+  await stream.upsertUser(user.id, getName(user));
 
   if (!user.isRegisteredInStream) {
     updateUser(client, userId, { isRegisteredInStream: true });

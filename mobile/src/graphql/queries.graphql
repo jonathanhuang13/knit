@@ -22,6 +22,7 @@ fragment CommunityBasics on Community {
   id
   name
   description
+  chatChannelId
 }
 
 fragment Self on User {
@@ -29,5 +30,6 @@ fragment Self on User {
   firstName
   lastName
   email
+  chatUserId
   chatToken
 }
